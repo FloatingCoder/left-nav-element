@@ -1,0 +1,171 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+An element providing a solution to no problem in particular.
+
+Example:
+
+    <left-nav-element></left-nav-element>
+
+@demo
+-->
+<dom-module id="left-nav-element">
+
+    <style>
+        :host {
+        }
+
+        .navigation-menu {
+            height: 100%;
+            background: #333;
+            width: 200px;
+            position: fixed;
+            display: inline-block;
+        }
+
+        .ncss-brand {
+            display: block;
+            box-sizing: border-box;
+            margin-bottom: 20px;
+
+            padding-right: 20px;
+            padding-left: 20px;
+
+            font-family: "Nike TG", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            letter-spacing: .5px;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            border: 0;
+            border-bottom: 1px;
+            border-color: white;
+            border-style: solid;
+        }
+
+        .app-title {
+            width: 100%;
+            background: #333;
+            cursor: pointer;
+            padding: 25px 0;
+            font-size: 25px;
+            line-height: 25px;
+            letter-spacing: -1px;
+            color: #fff;
+            text-align: center;
+            text-transform: uppercase;
+            font-family: 'Nike TG', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            margin: 0;
+            border: 0;
+            vertical-align: baseline;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .menu-item {
+            width: 100%;
+            background: #333;
+            color: #fff;
+            padding-left: 32px;
+            padding-bottom: 20px;
+            padding-right: 20px;
+            padding-top: 20px;
+            text-align: left;
+            display: inline-block;
+            vertical-align: top;
+            white-space: nowrap;
+            text-decoration: none;
+            background: 0 0;
+            cursor: pointer;
+            -webkit-transition: all .2s ease;
+            transition: all .2s ease;
+            font-family: "Nike TG", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            font-weight: 400;
+            letter-spacing: .5px;
+            -webkit-font-smoothing: antialiased;
+            font-size: inherit;
+            line-height: inherit;
+            border: none;
+            outline: 0;
+            overflow: visible;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-appearance: none;
+        }
+    </style>
+
+    <template>
+        <div id="menu" class="navigation-menu">
+            <div id="menu-header" class="ncss-brand">
+                <div id="title" class="app-title">
+                    {{title}}
+                </div>
+            </div>
+            <div id="menu-body">
+                <template is="dom-repeat" items="{{buttons}}">
+                    <button id="{{item.id}}" class="menu-item" on-click="handleClick" >{{item.name}}</button>
+                </template>
+            </div>
+        </div>
+    </template>
+
+</dom-module>
+
+<script>
+
+    Polymer({
+
+        is: 'left-nav-element',
+
+        properties: {
+            title: String,
+            buttons: Array
+        },
+        handleClick: function(e, detail) {
+            this.fire('menuItemClicked', {menuItemClicked: e.currentTarget.id});
+        },
+
+        created: function(){
+
+        },
+
+        // Element Lifecycle
+
+        ready: function () {
+            // `ready` is called after all elements have been configured, but
+            // propagates bottom-up. This element's children are ready, but parents
+            // are not.
+            //
+            // This is the point where you should make modifications to the DOM (when
+            // necessary), or kick off any processes the element wants to perform.
+        },
+
+        attached: function () {
+            // `attached` fires once the element and its parents have been inserted
+            // into a document.
+            //
+            // This is a good place to perform any work related to your element's
+            // visual state or active behavior (measuring sizes, beginning animations,
+            // loading resources, etc).
+        },
+
+        detached: function () {
+            // The analog to `attached`, `detached` fires when the element has been
+            // removed from a document.
+            //
+            // Use this to clean up anything you did in `attached`.
+        }
+
+    });
+
+</script>
