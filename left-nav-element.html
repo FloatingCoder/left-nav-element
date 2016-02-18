@@ -1,20 +1,11 @@
-<!--
-@license
-Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
-This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
-The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
-The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
-Code distributed by Google as part of the polymer project is also
-subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
--->
+
 <link rel="import" href="../polymer/polymer.html">
 
 <!--
-An element providing a solution to no problem in particular.
-
+A vertical menu bar
 Example:
 
-    <left-nav-element></left-nav-element>
+    <left-nav-element selectedid="button1" title="My App" buttons='[{"id":"button1", "name": "Test 3"}, {"id":"button2", "name": "Test 2"}]'>
 
 @demo
 -->
@@ -102,6 +93,11 @@ Example:
             -webkit-tap-highlight-color: transparent;
             -webkit-appearance: none;
         }
+
+        .navigation-menu .menu-item.selected {
+            background: #39c;
+            text-decoration: none;
+        }
     </style>
 
     <template>
@@ -113,7 +109,7 @@ Example:
             </div>
             <div id="menu-body">
                 <template is="dom-repeat" items="{{buttons}}">
-                    <button id="{{item.id}}" class="menu-item" on-click="handleClick" >{{item.name}}</button>
+                    <button id="{{item.id}}" class$="menu-item {{isSelected(item.id, selectedid)}}" on-click="handleClick" >{{item.name}}</button>
                 </template>
             </div>
         </div>
@@ -129,10 +125,21 @@ Example:
 
         properties: {
             title: String,
-            buttons: Array
+            buttons: Array,
+            selectedid: String
         },
+
         handleClick: function(e, detail) {
+            this.selectedid = e.currentTarget.id;
             this.fire('menuItemClicked', {menuItemClicked: e.currentTarget.id});
+        },
+
+        isSelected: function(itemId) {
+          if (this.selectedid === itemId) {
+              return "selected";
+          } else {
+              return "";
+          }
         },
 
         created: function(){
